@@ -33,16 +33,29 @@ const AllImages = () => {
 
     // delete functionality
     useEffect(() => {
-        axios
-            // .delete(`http://localhost:5000/delete-image/${imageID}`)
-            .delete(`https://fileupload-ylu9.onrender.com/${imageID}`)
-            .then((response) => {
-                console.log("Image deleted successfully:", response.data);
-            })
-            .catch((error) => {
-                console.error("Error deleting image:", error);
-            });
+        if (imageID) {
+            axios
+                // .delete(`http://localhost:5000/delete-image/${imageID}`)
+                .delete(`https://fileupload-ylu9.onrender.com/${imageID}`)
+                .then((response) => {
+                    console.log("Image deleted successfully:", response.data);
+                    setImages(images.filter((img) => img.id !== imageID)); // Remove deleted image from the state
+                })
+                .catch((error) => {
+                    console.error("Error deleting image:", error);
+                });
+        }
     }, [imageID]);
+
+    // download functionality
+    const handleDownload = (url) => {
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = url.split("/").pop(); // Extract file name from the URL
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     return (
         <div className="mt-10 w-[95vw] h-auto flex justify-center items-center flex-col">
@@ -77,11 +90,6 @@ const AllImages = () => {
                         className="bg-white p-5 rounded shadow-lg flex flex-col items-center"
                         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the popup
                     >
-                        {/* <img
-                            src={selectedImage.url}
-                            alt=""
-                            className="max-w-full max-h-80"
-                        /> */}
                         <img
                             src={selectedImage.url}
                             alt=""
@@ -96,10 +104,18 @@ const AllImages = () => {
                                 Close
                             </button>
                             <button
-                                onClick={closePopup}
+                                onClick={() => setImageID(selectedImage.id)}
                                 className="mt-5 bg-red-700 text-white px-4 py-2 rounded"
                             >
                                 Delete
+                            </button>
+                            <button
+                                onClick={() =>
+                                    handleDownload(selectedImage.url)
+                                }
+                                className="mt-5 bg-blue-500 text-white px-4 py-2 rounded"
+                            >
+                                Download
                             </button>
                         </div>
                     </div>
