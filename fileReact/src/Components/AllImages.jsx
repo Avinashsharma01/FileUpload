@@ -12,7 +12,8 @@ const AllImages = () => {
     console.log(selectedImage);
     console.log(imageID);
     useEffect(() => {
-        fetch("http://localhost:5000/list-images")
+        // fetch("http://localhost:5000/list-images")
+        fetch("https://fileupload-ylu9.onrender.com/list-images")
             .then((res) => res.json())
             .then((data) => {
                 setImages(data.imageUrls);
@@ -33,7 +34,8 @@ const AllImages = () => {
     // delete functionality
     useEffect(() => {
         axios
-            .delete(`http://localhost:5000/delete-image/${imageID}`)
+            // .delete(`http://localhost:5000/delete-image/${imageID}`)
+            .delete(`https://fileupload-ylu9.onrender.com/${imageID}`)
             .then((response) => {
                 console.log("Image deleted successfully:", response.data);
             })

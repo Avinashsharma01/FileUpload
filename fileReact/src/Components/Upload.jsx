@@ -28,7 +28,7 @@ const Upload = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5000/upload",
+                "https://fileupload-ylu9.onrender.com/upload",
                 formData,
                 {
                     headers: {
