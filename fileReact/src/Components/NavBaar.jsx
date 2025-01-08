@@ -2,12 +2,12 @@ import { NavLink } from "react-router-dom";
 
 const NavBaar = () => {
     return (
-        <div className="flex  bg-cyan-600 text-white justify-around items-center w-full h-[60px]">
+        <div className="flex bg-cyan-600 text-white justify-around items-center w-full h-[60px]">
             <div className="logo">
                 <h1 className="text-3xl">Avinash</h1>
             </div>
             <div className="link">
-                <ul className="flex justify-center items-center gap-5 text-lg">
+                <ul className="hidden sm:flex justify-center items-center gap-5 text-lg">
                     <li>
                         <NavLink to="/">Home</NavLink>
                     </li>
@@ -21,6 +21,7 @@ const NavBaar = () => {
                         <NavLink to="/contact">Contacts</NavLink>
                     </li>
                 </ul>
+                <button className="sm:hidden block text-white">Menu</button>
             </div>
         </div>
     );
